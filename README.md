@@ -1,2 +1,2 @@
-# TOPPRoject1
+# odin-recipes
 The Odin Project - Erstes HTML Projekt
