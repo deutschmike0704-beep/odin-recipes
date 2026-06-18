@@ -1,33 +1,76 @@
 <!DOCTYPE html>
-<html lang="en">
+<!-- DOCTYPE sagt dem Browser: "Das ist ein HTML5-Dokument" -->
+
+<html lang="de">
+<!-- lang="de" = Sprache der Seite (wichtig für Screenreader & Suchmaschinen) -->
+
 <head>
+    <!-- <head> = unsichtbare Infos über die Seite (nicht direkt sichtbar im Browser) -->
+
     <meta charset="UTF-8">
+    <!-- Zeichensatz: Umlaute (ä, ö, ü) und Sonderzeichen werden korrekt angezeigt -->
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <!-- Wichtig für Responsive Design: Seite passt sich der Bildschirmbreite an -->
+
+    <title>Mike Rezepte</title>
+    <!-- Text im Browser-Tab oben -->
+
     <link rel="stylesheet" href="style.css">
+    <!-- Verknüpft die CSS-Datei – alle Styles kommen von dort -->
 </head>
-<body>
-    <h1>Mike Rezepte</h1>
-    <p>Hier finden sie eine Liste an leckeren Rezepten!</p>
-        <ul class="link-vorschau">
+
+<body class="home-page">
+    <!-- class="home-page" = CSS-Klasse, damit nur die Startseite diese Styles bekommt -->
+
+    <header class="site-hero">
+        <!-- <header> = semantischer Bereich für den Kopf der Seite (Hero-Bereich) -->
+
+        <h1>Mike Rezepte</h1>
+        <!-- <h1> = wichtigste Überschrift (nur einmal pro Seite) -->
+
+        <p class="site-tagline">Hier finden Sie eine Auswahl an leckeren Rezepten</p>
+        <!-- <p> = Absatz; class gibt dem Text spezielle Formatierung -->
+    </header>
+
+    <main class="home-container">
+        <!-- <main> = Hauptinhalt der Seite (das Wichtigste) -->
+
+        <ul class="recipe-cards">
+            <!-- <ul> = ungeordnete Liste; hier als Grid für die Rezept-Karten -->
+
             <li>
-                <a href="recipes/lasagna.html">
-                    <img src="/images/lasagna.png">
-                    <span>Rezept 1 - Lasagne</span>
+                <!-- <li> = ein Listeneintrag = eine Rezept-Karte -->
+
+                <a href="recipes/lasagna.html" class="recipe-card">
+                    <!-- <a> = Link; href = Ziel-URL; die ganze Karte ist klickbar -->
+
+                    <img src="images/lasagna.png" alt="Lasagne mit geschmolzenem Käse">
+                    <!-- <img> = Bild; src = Dateipfad; alt = Beschreibung für Barrierefreiheit -->
+
+                    <span class="recipe-card-title">Lasagne</span>
+                    <!-- <span> = kleiner Textblock ohne eigene Zeile (inline) -->
+
+                    <span class="recipe-card-desc">Klassische italienische Familienlasagne</span>
                 </a>
             </li>
+
             <li>
-                <a href="recipes/gurkensalat.html">
-                    <img src="/images/gurkensalat.png" alt="Gurkensalat Rezept">
-                    <span>Rezept 2 Gurkensalat</span>
+                <a href="recipes/gurkensalat.html" class="recipe-card">
+                    <img src="images/gurkensalat.png" alt="Frischer Gurkensalat">
+                    <span class="recipe-card-title">Gurkensalat</span>
+                    <span class="recipe-card-desc">Knackig und erfrischend als Beilage</span>
                 </a>
             </li>
+
             <li>
-                <a href="recipes/zitronenkuchen.html">
-                    <img src="/images/Zitronenkuchen.jpg" alt="Zitronenkuchen Rezept">
-                    <span>Rezept 3 Zitronenkuchen</span>
+                <a href="recipes/zitronenkuchen.html" class="recipe-card">
+                    <img src="images/zitronenkuchen.jpg" alt="Zitronenkuchen mit Guss">
+                    <span class="recipe-card-title">Zitronenkuchen</span>
+                    <span class="recipe-card-desc">Saftig und zitronig-süß</span>
                 </a>
             </li>
         </ul>
+    </main>
 </body>
 </html>

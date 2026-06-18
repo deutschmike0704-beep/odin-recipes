@@ -1,69 +1,393 @@
-html, body {
-    margin:0px;
-    padding:0px;
+/* ═══════════════════════════════════════════════════════════
+   CSS-VARIABLEN (Custom Properties)
+   Farben & Werte einmal definieren, überall mit var() nutzen.
+   Vorteil: Änderst du --color-accent, ändert sich alles automatisch.
+   ═══════════════════════════════════════════════════════════ */
+
+:root {
+    --color-bg: #faf6f0;           /* Hintergrundfarbe (Creme) */
+    --color-bg-mid: #f3ebe0;
+    --color-bg-end: #ede4d8;
+    --color-text: #2d2a26;         /* Haupttextfarbe (dunkelbraun) */
+    --color-text-muted: #4a4540;   /* Gedämpfter Text (Beschreibungen) */
+    --color-accent: #8b2e1f;       /* Akzentfarbe (dunkles Rot – Überschriften) */
+    --color-accent-light: #c44d35;
+    --color-accent-bright: #d4623a;
+    --color-surface: #fff;         /* Karten-Hintergrund (weiß) */
+    --color-border: rgba(139, 46, 31, 0.08);  /* rgba = Farbe mit Transparenz */
+    --color-divider: #f0ebe4;      /* Trennlinien in Listen */
+    --shadow-sm: 0 2px 12px rgba(45, 42, 38, 0.07);   /* Leichter Schatten */
+    --shadow-md: 0 12px 40px rgba(45, 42, 38, 0.18);  /* Stärkerer Schatten */
+    --shadow-hero: 0 4px 24px rgba(139, 46, 31, 0.25);
+    --radius-card: 14px;           /* Abgerundete Ecken für Karten */
+    --radius-image: 16px;
+    --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    --hero-gradient: linear-gradient(135deg, #a83226 0%, #c44d35 45%, #d4623a 100%);
+    --step-gradient: linear-gradient(135deg, #a83226, #d4623a);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RESET / BASIS
+   Entfernt Browser-Standardabstände und sorgt für konsistentes Verhalten.
+   ═══════════════════════════════════════════════════════════ */
+
+/* Der Stern (*) wählt ALLE Elemente aus */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    /* padding & border werden IN die Breite eingerechnet (einfacheres Layout) */
+}
+
+html,
+body {
+    margin: 0;          /* Kein Außenabstand */
+    padding: 0;         /* Kein Innenabstand */
+    min-height: 100vh;  /* Mindestens so hoch wie der sichtbare Bildschirm */
+}
+
+/* ═══════════════════════════════════════════════════════════
+   STARTSEITE (body.home-page)
+   Styles gelten nur, wenn <body class="home-page"> gesetzt ist.
+   ═══════════════════════════════════════════════════════════ */
+
+body.home-page {
+    /* linear-gradient = Farbverlauf als Hintergrund */
+    background: linear-gradient(160deg, var(--color-bg) 0%, var(--color-bg-mid) 50%, var(--color-bg-end) 100%);
+    font-family: var(--font-sans);
+    color: var(--color-text);
+    line-height: 1.65;  /* Zeilenabstand für bessere Lesbarkeit */
+}
+
+.site-hero {
+    background: var(--hero-gradient);
+    padding: 3rem 1.5rem 4rem;  /* Innenabstand: oben rechts/unten links */
+    text-align: center;
+    box-shadow: var(--shadow-hero);
+}
+
+.site-hero h1 {
+    margin: 0;
+    /* clamp(min, bevorzugt, max) = Schrift skaliert mit Bildschirmgröße */
+    font-size: clamp(2.25rem, 7vw, 3.5rem);
+    font-weight: 700;       /* 700 = fett */
+    letter-spacing: -0.02em; /* Buchstaben etwas enger */
+    color: #fff;
+}
+
+.site-tagline {
+    margin: 0.75rem 0 0;
+    font-size: clamp(1rem, 2.5vw, 1.15rem);
+    color: rgba(255, 255, 255, 0.88);  /* Weiß mit 88% Deckkraft */
+    font-weight: 400;  /* 400 = normal */
+}
+
+.home-container {
+    max-width: 1100px;  /* Inhalt wird nicht breiter als 1100px */
+    margin: -2rem auto 3rem;  /* auto = horizontal zentriert; -2rem = überlappt Hero */
+    padding: 0 1.25rem; /* Seitenabstand links/rechts */
+}
+
+/* ── Rezept-Karten Grid ───────────────────────────────────── */
+
+.recipe-cards {
+    display: grid;  /* CSS Grid = Raster-Layout */
+    /* auto-fit + minmax = Karten passen sich automatisch an die Breite an */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;    /* Abstand zwischen den Karten */
+    list-style: none;  /* Entfernt die Standard-Aufzählungspunkte von <ul> */
+    margin: 0;
+    padding: 0;
+}
+
+.recipe-card {
+    display: flex;              /* Flexbox = flexible Anordnung der Kinder */
+    flex-direction: column;     /* Kinder untereinander stapeln */
+    height: 100%;               /* Alle Karten gleich hoch in einer Zeile */
+    text-decoration: none;      /* Unterstreichung des Links entfernen */
+    color: inherit;             /* Textfarbe vom Elternelement übernehmen */
+    background: var(--color-surface);
+    border-radius: var(--radius-card);
+    overflow: hidden;           /* Bild-Ecken werden abgeschnitten (rund) */
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-sm);
+    /* transition = animiert Änderungen über 0.25 Sekunden */
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* :hover = Style wenn die Maus darüber ist */
+.recipe-card:hover {
+    transform: translateY(-6px);  /* Karte hebt sich 6px nach oben */
+    box-shadow: var(--shadow-md);
+}
+
+.recipe-card img {
+    display: block;   /* Entfernt kleine Lücke unter dem Bild */
+    width: 100%;      /* Bild füllt die volle Kartenbreite */
+    height: 200px;
+    object-fit: cover;  /* Bild wird zugeschnitten, behält Proportionen */
+}
+
+.recipe-card-title {
+    display: block;   /* block = eigene Zeile (unter dem Bild) */
+    padding: 1.1rem 1.25rem 0.25rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--color-accent);
+}
+
+.recipe-card-desc {
+    display: block;
+    padding: 0 1.25rem 1.25rem;
+    font-size: 0.92rem;
+    color: var(--color-text-muted);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   REZEPTSEITEN (body.recipe-page)
+   ═══════════════════════════════════════════════════════════ */
+
+body.recipe-page {
+    background: linear-gradient(160deg, var(--color-bg) 0%, var(--color-bg-mid) 50%, var(--color-bg-end) 100%);
+    font-family: var(--font-sans);
+    color: var(--color-text);
+    line-height: 1.65;
+}
+
+/* "body.recipe-page h1" = h1 NUR auf Rezeptseiten (nicht Startseite) */
+body.recipe-page h1 {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    font-size: clamp(2rem, 6vw, 3.25rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: #fff;
+}
+
+body.recipe-page h2 {
+    margin: 0 0 1rem;  /* unten 1rem Abstand */
+    font-size: clamp(1.15rem, 3vw, 1.4rem);
+    font-weight: 600;
+    color: var(--color-accent);
+    letter-spacing: 0.01em;
+}
+
+body.recipe-page h3 {
+    margin: 1.25rem 0 0.75rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-accent);
+}
+
+body.recipe-page p {
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    font-size: 1.05rem;
+}
+
+.recipe-hero {
+    background: var(--hero-gradient);
+    padding: 1.25rem 1.5rem 2.5rem;
+    text-align: center;
+    box-shadow: var(--shadow-hero);
+}
+
+.recipe-nav {
+    max-width: 900px;
+    margin: 0 auto 1.5rem;  /* auto = zentriert den Nav-Bereich */
+    text-align: left;
+}
+
+.back-link {
+    display: inline-flex;   /* Flexbox, aber inline (nicht volle Breite) */
+    align-items: center;    /* Vertikal zentrieren */
+    gap: 0.35rem;           /* Abstand zwischen Icon und Text */
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #fff;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 999px;   /* Sehr rund = Pillen-Form */
+    backdrop-filter: blur(6px);  /* Milchglas-Effekt */
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.back-link:hover {
+    background: rgba(255, 255, 255, 0.28);
+    transform: translateX(-3px);  /* Link rutscht leicht nach links */
+}
+
+.recipe-tagline {
+    margin-top: 0.5rem;
+    font-size: 1.05rem;
+    color: rgba(255, 255, 255, 0.88);
+    font-weight: 400;
+}
+
+.recipe-container {
+    max-width: 900px;
+    margin: -1.75rem auto 3rem;  /* Negativer margin-top = überlappt Hero */
+    padding: 0 1.25rem;
+}
+
+.recipe-image {
+    margin: 0 0 1.75rem;
+    border-radius: var(--radius-image);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    aspect-ratio: 16 / 9;  /* Seitenverhältnis 16:9 (wie Widescreen) */
+}
+
+.recipe-image img {
+    display: block;
+    width: 100%;
     height: 100%;
-    min-height: 100vh;
-    background: grey;
+    object-fit: cover;
 }
-h1 {
-    text-align:center;
-    justify-content:center;
-    background-color: lightgoldenrodyellow;
-    margin-bottom:0px;
-    margin-top:0px;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    font-size:3rem;
-    border-style:solid;
-    border-width:5px;
-    border-color:lightblue;
+
+/* ── Weiße Inhalts-Karten ─────────────────────────────────── */
+
+.recipe-section {
+    background: var(--color-surface);
+    border-radius: var(--radius-card);
+    padding: 1.5rem 1.75rem;
+    margin-bottom: 1.25rem;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--color-border);
 }
-    p {
-    text-align:center;
-    justify-content:center;
-    padding:20px;
-    border-width: 0px;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    font-size:1rem;
-    background: lightgoldenrodyellow;
-    border-style:solid;
-    border-width:5px;
-    border-color:lightblue;
+
+.recipe-description p {
+    color: var(--color-text-muted);
+}
+
+/* Zwei Spalten: Zutaten links, Zubereitung rechts */
+.recipe-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;  /* 1.4fr = rechte Spalte etwas breiter */
+    gap: 1.25rem;
+    align-items: start;  /* Spalten oben ausrichten (nicht strecken) */
+}
+
+/* ── Listen ohne Standard-Bullets/Nummern ─────────────────── */
+
+.recipe-ingredients ul,
+.recipe-steps ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;  /* Browser-eigene Punkte/Nummern ausblenden */
+}
+
+.recipe-ingredients li {
+    position: relative;  /* Nötig für ::before (absolut positioniert) */
+    padding: 0.55rem 0 0.55rem 1.5rem;  /* links Platz für den roten Punkt */
+    border-bottom: 1px solid var(--color-divider);
+    font-size: 0.98rem;
+    color: var(--color-text-muted);
+}
+
+.recipe-ingredients li:last-child {
+    border-bottom: none;  /* :last-child = letztes Element in der Liste */
+}
+
+/* ::before = fügt ein Pseudo-Element VOR dem <li> ein (roter Punkt) */
+.recipe-ingredients li::before {
+    content: "";  /* Leerer Inhalt = nur die Form wird gezeichnet */
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);  /* Vertikal zentrieren */
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;  /* 50% = Kreis */
+    background: var(--color-accent-light);
+}
+
+/* ── Nummerierte Schritte mit CSS-Counter ───────────────────── */
+
+.recipe-steps ol {
+    counter-reset: step;  /* Zähler auf 0 zurücksetzen */
+}
+
+.recipe-steps li {
+    position: relative;
+    padding: 0.85rem 0 0.85rem 3rem;  /* links Platz für die Nummer */
+    border-bottom: 1px solid var(--color-divider);
+    font-size: 0.98rem;
+    color: var(--color-text-muted);
+    counter-increment: step;  /* Zähler um 1 erhöhen pro <li> */
+}
+
+.recipe-steps li:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+/* counter(step) zeigt die aktuelle Zählernummer im ::before-Kreis */
+.recipe-steps li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: 0.75rem;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #fff;
+    background: var(--step-gradient);
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(168, 50, 38, 0.3);
+}
+
+.recipe-steps li strong {
+    color: var(--color-text);  /* Schritt-Titel etwas dunkler/hervorgehoben */
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RESPONSIVE DESIGN – Media Query
+   Diese Regeln gelten NUR wenn der Bildschirm ≤ 720px breit ist.
+   ═══════════════════════════════════════════════════════════ */
+
+@media (max-width: 720px) {
+    .site-hero {
+        padding: 2.5rem 1rem 3.5rem;
     }
 
-    .link-vorschau {
-        list-style: none;
-        padding:0px;
-        margin:40px 0;
-        display: flex;
-        flex-wrap:wrap;
-        gap:25px;
-        justify-content: center;
+    .home-container {
+        margin-top: -1.5rem;
+        padding: 0 1rem;
     }
-    .link-vorschau li {
-        flex: 0 0 220px;
-        text-align:center;
+
+    .recipe-cards {
+        grid-template-columns: 1fr;  /* Eine Spalte auf dem Handy */
+        gap: 1.25rem;
     }
-.link-vorschau a {
-    text-decoration: none;
-    color:inherit;
-    display: block;
-    transition: transform 0.3s;
-}
-.link-vorschau a:hover {
-    transform: translateY(-8px);
-}
-.link-vorschau img {
-    width:100%;
-    height:140px;
-    object-fit:cover;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    margin-bottom:12px;
-}
-.link-vorschau span {
-    display: block;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin-top:8px;
+
+    .recipe-hero {
+        padding: 1rem 1rem 2rem;
+    }
+
+    .recipe-container {
+        margin-top: -1.25rem;
+        padding: 0 1rem;
+    }
+
+    .recipe-grid {
+        grid-template-columns: 1fr;  /* Zutaten & Zubereitung untereinander */
+    }
+
+    .recipe-section {
+        padding: 1.25rem;
+    }
+
+    .recipe-image {
+        border-radius: 12px;
+        aspect-ratio: 4 / 3;  /* Auf Handy etwas höheres Bildformat */
+    }
 }

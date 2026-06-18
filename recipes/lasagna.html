@@ -1,44 +1,90 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Lasagna Recipe</h1>
-    <img src="../images/lasagna.png" width="250"/>
-    <h2>Beschreibung</h2>
-        <p>Die klassische italienische Lasagne mit saftiger Bolognese, cremiger Bechamelsauce und viel geschmolzenem Käse.<br>
-         Ein herzhaftes und beliebtes Familienessen.</p>
-    
-    <h2>Zutatenliste</h2>
-        <ul>
-            <li>500g Hackfleisch</li>
-            <li>1 Große Zwiebel</li>
-            <li>2 Karotten</li>
-            <li>2 Stangen Staudensellerie</li>
-            <li>3-4 Knoblauchzehen</li>
-            <li>2 EL Tomatenmark</li>
-            <li>800g passierte Tomaten</li>
-            <li>Olivenöl</li>
-            <li>100 ml Rotwein</li>
-        </ul>
+    <title>Lasagne Rezept | Mike Rezepte</title>
 
-    <h2>Zubereitung:</h2>
-        <ol>
-            <li>Zwiebel, Karotten, Sellerie und Knoblauch sehr fein würfeln (Soffritto)</li><br>
-            <li>Etwas Olivenöl in einem großen Topf erhitzen. Zuerst die Zwiebel glasig anschwitzen,<br>
-                 dann Karotten und Sellerie dazugeben und ca. 5–7 Minuten mitbraten.</li><br>
-            <li>Knoblauch kurz mit anschwitzen.</li><br>
-            <li>Das Hackfleisch hinzufügen und krümelig anbraten, bis es richtig braun ist.</li><br>
-            <li>2 EL Tomatenmark einrühren und kurz mitrösten.</li><br>
-            <li>Mit 100 ml Rotwein ablöschen und fast vollständig einkochen lassen.</li><br>
-            <li>Passierte Tomaten, 150–200 ml Milch, Lorbeerblätter, Oregano, Salz und Pfeffer hinzufügen.</li><br>
-            <li>Alles auf kleiner Flamme mindestens 1,5–2 Stunden köcheln lassen (je länger, desto besser). <br>
-                Gelegentlich umrühren und bei Bedarf etwas Wasser oder Brühe nachgießen. Am Ende frisches Basilikum einrühren.</li><br>
-            
-        </ol>
-<a href="../index.html">Zurück</a>
+    <!-- "../style.css" = ein Ordner nach oben (recipes → Hauptordner), dann style.css -->
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body class="recipe-page">
+    <!-- class="recipe-page" unterscheidet Rezeptseiten von der Startseite im CSS -->
+
+    <header class="recipe-hero">
+        <!-- Hero = großer farbiger Kopfbereich mit Titel -->
+
+        <nav class="recipe-nav">
+            <!-- <nav> = Navigationsbereich (Links zum Hin- und Hernavigieren) -->
+
+            <a href="../index.html" class="back-link">← Zurück zur Übersicht</a>
+            <!-- Link zurück zur Startseite; "../" = ein Ordner höher -->
+        </nav>
+
+        <h1>Lasagne</h1>
+        <p class="recipe-tagline">Die klassische italienische Familienlasagne</p>
+        <!-- Tagline = kurzer Untertitel unter dem Haupttitel -->
+    </header>
+
+    <main class="recipe-container">
+        <!-- Container begrenzt die Breite und zentriert den Inhalt -->
+
+        <figure class="recipe-image">
+            <!-- <figure> = Bild mit optionalem Bildtext (hier nur das Bild) -->
+
+            <img src="../images/lasagna.png" alt="Lasagne mit geschmolzenem Käse und Bolognese">
+        </figure>
+
+        <section class="recipe-section recipe-description">
+            <!-- <section> = inhaltlicher Abschnitt; zwei Klassen = allgemein + speziell -->
+
+            <h2>Beschreibung</h2>
+            <!-- <h2> = Unterüberschrift (kleiner/weniger wichtig als h1) -->
+
+            <p>Die klassische italienische Lasagne mit saftiger Bolognese, cremiger Béchamelsauce und viel geschmolzenem Käse. Ein herzhaftes und beliebtes Familienessen.</p>
+        </section>
+
+        <div class="recipe-grid">
+            <!-- <div> = neutraler Container ohne semantische Bedeutung -->
+            <!-- recipe-grid = CSS Grid legt Zutaten & Zubereitung nebeneinander (Desktop) -->
+
+            <section class="recipe-section recipe-ingredients">
+                <h2>Zutatenliste</h2>
+
+                <ul>
+                    <!-- <ul> = ungeordnete Liste (Aufzählungspunkte) -->
+
+                    <li>500 g Hackfleisch</li>
+                    <!-- <li> = ein Listeneintrag -->
+                    <li>1 große Zwiebel</li>
+                    <li>2 Karotten</li>
+                    <li>2 Stangen Staudensellerie</li>
+                    <li>3–4 Knoblauchzehen</li>
+                    <li>2 EL Tomatenmark</li>
+                    <li>800 g passierte Tomaten</li>
+                    <li>Olivenöl</li>
+                    <li>100 ml Rotwein</li>
+                </ul>
+            </section>
+
+            <section class="recipe-section recipe-steps">
+                <h2>Zubereitung</h2>
+
+                <ol>
+                    <!-- <ol> = geordnete Liste (nummerierte Schritte) -->
+
+                    <li>Zwiebel, Karotten, Sellerie und Knoblauch sehr fein würfeln (Soffritto).</li>
+                    <li>Etwas Olivenöl in einem großen Topf erhitzen. Zuerst die Zwiebel glasig anschwitzen, dann Karotten und Sellerie dazugeben und ca. 5–7 Minuten mitbraten.</li>
+                    <li>Knoblauch kurz mit anschwitzen.</li>
+                    <li>Das Hackfleisch hinzufügen und krümelig anbraten, bis es richtig braun ist.</li>
+                    <li>2 EL Tomatenmark einrühren und kurz mitrösten.</li>
+                    <li>Mit 100 ml Rotwein ablöschen und fast vollständig einkochen lassen.</li>
+                    <li>Passierte Tomaten, 150–200 ml Milch, Lorbeerblätter, Oregano, Salz und Pfeffer hinzufügen.</li>
+                    <li>Alles auf kleiner Flamme mindestens 1,5–2 Stunden köcheln lassen (je länger, desto besser). Gelegentlich umrühren und bei Bedarf etwas Wasser oder Brühe nachgießen. Am Ende frisches Basilikum einrühren.</li>
+                </ol>
+            </section>
+        </div>
+    </main>
 </body>
 </html>
